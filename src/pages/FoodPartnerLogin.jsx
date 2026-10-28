@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/common.css';
 import axios from 'axios';
-import { API_URL } from '../api';
+import { API_URL, saveAuthToken } from '../api';
 import { useNavigate } from 'react-router-dom';
 
 const FoodPartnerLogin = () => {
@@ -15,6 +15,7 @@ const FoodPartnerLogin = () => {
     try {
       const res = await axios.post(`${API_URL}/api/auth/foodpartner/login`, { email, password }, { withCredentials: true });
        if (res.status === 200) {
+        saveAuthToken(res.data.token);
         navigate(`/food-partner/${res.data.foodPartner._id}`);
       } else {
         alert('Login failed');

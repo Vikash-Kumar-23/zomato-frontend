@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/common.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { API_URL } from '../api';
+import { API_URL, saveAuthToken } from '../api';
 
 const UserRegister = () => {
   const navigate = useNavigate();
@@ -20,6 +20,7 @@ const UserRegister = () => {
         withCredentials: true,
       });
       if (response.status === 201) {
+        saveAuthToken(response.data.token);
         alert('User registered successfully');
         navigate('/');
       }

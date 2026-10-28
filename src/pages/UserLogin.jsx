@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/common.css';
 import axios from 'axios';
-import { API_URL } from '../api';
+import { API_URL, saveAuthToken } from '../api';
 import { useNavigate } from 'react-router-dom';
 
 const UserLogin = () => {
@@ -17,6 +17,7 @@ const UserLogin = () => {
         withCredentials: true,
       });
       if (response.status === 200) {
+        saveAuthToken(response.data.token);
         navigate('/user/profile');
       }
     } catch (error) {

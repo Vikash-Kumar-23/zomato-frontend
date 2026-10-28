@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import './home.css';
 import { useNavigate,Link } from 'react-router-dom';
-import { API_URL } from '../../api';
+import { API_URL, clearAuthToken } from '../../api';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -152,6 +152,7 @@ const Home = () => {
   const logout = async () => {
     const rolePath = session?.role === 'foodPartner' ? 'foodpartner' : 'user';
     await axios.post(`${API_URL}/api/auth/${rolePath}/logout`, {}, { withCredentials: true });
+    clearAuthToken();
     setSession(null);
   };
 
